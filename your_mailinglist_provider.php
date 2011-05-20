@@ -74,7 +74,7 @@ class YourMailingListProvider
 	 * Default constructor
 	 *
 	 * @return	void
-	 * @param	string $login					The username that has to be used for authenticating.
+	 * @param	string $username					The username that has to be used for authenticating.
 	 * @param	string[optional] $apiKey		The API-key that has to be used for authentication.
 	 */
 	public function __construct($username, $apiKey)
@@ -103,7 +103,7 @@ class YourMailingListProvider
 		if(!in_array($method, array('GET', 'POST'))) throw new YourMailingListProviderException('Invalid method.');
 
 		// prepend
-		$url = self::API_URL .'/'. $url;
+		$url = self::API_URL . '/' . $url;
 
 		// set options
 		$options[CURLOPT_URL] = $url;
@@ -141,8 +141,8 @@ class YourMailingListProvider
 			// any parameters?
 			if(!empty($parameters))
 			{
-				if(substr_count($url, '?') > 0) $options[CURLOPT_URL] .= '&'. http_build_query($parameters);
-				else $options[CURLOPT_URL] .= '?'. http_build_query($parameters);
+				if(substr_count($url, '?') > 0) $options[CURLOPT_URL] .= '&' . http_build_query($parameters);
+				else $options[CURLOPT_URL] .= '?' . http_build_query($parameters);
 			}
 		}
 
@@ -207,13 +207,13 @@ class YourMailingListProvider
 
 	/**
 	 * Get the useragent that will be used. Our version will be prepended to yours.
-	 * It will look like: "PHP GitHub/<version> <your-user-agent>"
+	 * It will look like: "PHP Your Mailing List Provider/<version> <your-user-agent>"
 	 *
 	 * @return	string
 	 */
 	public function getUserAgent()
 	{
-		return (string) 'PHP GitHub/'. self::VERSION .' '. $this->userAgent;
+		return (string) 'PHP Your Mailing List Provider/' . self::VERSION . ' ' . $this->userAgent;
 	}
 
 
@@ -232,7 +232,7 @@ class YourMailingListProvider
 	 * Set the API-key that has to be used
 	 *
 	 * @return	void
-	 * @param	string $apiKey
+	 * @param	string $apiKey	The key to set.
 	 */
 	private function setApiKey($apiKey)
 	{
@@ -244,7 +244,7 @@ class YourMailingListProvider
 	 * Set the password that has to be used
 	 *
 	 * @return	void
-	 * @param	string $password
+	 * @param	string $password	The password to use.
 	 */
 	private function setPassword($password)
 	{
@@ -257,7 +257,7 @@ class YourMailingListProvider
 	 * After this time the request will stop. You should handle any errors triggered by this.
 	 *
 	 * @return	void
-	 * @param	int $seconds	The timeout in seconds
+	 * @param	int $seconds	The timeout in seconds.
 	 */
 	public function setTimeOut($seconds)
 	{
@@ -267,10 +267,10 @@ class YourMailingListProvider
 
 	/**
 	 * Set the user-agent for you application
-	 * It will be appended to ours, the result will look like: "PHP GitHub/<version> <your-user-agent>"
+	 * It will be appended to ours, the result will look like: "PHP Your Mailing List Provider/<version> <your-user-agent>"
 	 *
 	 * @return	void
-	 * @param	string $userAgent	Your user-agent, it should look like <app-name>/<app-version>
+	 * @param	string $userAgent	Your user-agent, it should look like <app-name>/<app-version>.
 	 */
 	public function setUserAgent($userAgent)
 	{
@@ -282,7 +282,7 @@ class YourMailingListProvider
 	 * Set the username that has to be used
 	 *
 	 * @return	void
-	 * @param	string $username
+	 * @param	string $username	The username to use.
 	 */
 	private function setUsername($username)
 	{
@@ -312,7 +312,7 @@ class YourMailingListProvider
 	 * Adds a new contact to one or more groups in your database.
 	 *
 	 * @return	bool
-	 * @param	string $email
+	 * @param	string $email									The emailadress.
 	 * @param	array $groups									An array with the ids of the groups.
 	 * @param	array[optional] $fields							An key-value-pair array, where the key is the id of the field.
 	 * @param	bool[optional] $overruleUnsubscribedBounced		If true the e-mailadress will be added even if this persion previously unsubscribed or if the email address previously was removed by bounce back handling.
@@ -333,7 +333,7 @@ class YourMailingListProvider
 		if(!empty($fields))
 		{
 			// loop fields and add them
-			foreach($fields as $id => $value) $parameters['Field'. $id] = $value;
+			foreach($fields as $id => $value) $parameters['Field' . $id] = $value;
 		}
 
 		// group
@@ -343,7 +343,7 @@ class YourMailingListProvider
 		if($overruleUnsubscribedBounced) $parameters['OverruleUnsubscribedBounced'] = 1;
 
 		// make the call
-		return ($this->doCall($url, $parameters, 'POST') == $email .' has been added');
+		return ($this->doCall($url, $parameters, 'POST') == $email . ' has been added');
 	}
 
 
@@ -351,7 +351,7 @@ class YourMailingListProvider
 	 * Removes a given email address from one or more groups.
 	 *
 	 * @return	bool
-	 * @param	string $email
+	 * @param	string $email	The emailadress.
 	 * @param	array $groups	An array with the ids of the groups.
 	 */
 	public function contactsDelete($email, array $groups)
@@ -367,7 +367,7 @@ class YourMailingListProvider
 		$parameters['GroupID'] = implode(',', $groups);
 
 		// make the call
-		return ($this->doCall($url, $parameters, 'POST') == $email .' has been removed');
+		return ($this->doCall($url, $parameters, 'POST') == $email . ' has been removed');
 	}
 
 
@@ -375,7 +375,7 @@ class YourMailingListProvider
 	 * Unsubscribes a given email address.
 	 *
 	 * @return	bool
-	 * @param	string $email
+	 * @param	string $email	The emailadress.
 	 */
 	public function contactsUnsubscribe($email)
 	{
@@ -389,7 +389,7 @@ class YourMailingListProvider
 		$parameters['Email'] = $email;
 
 		// make the call
-		return ($this->doCall($url, $parameters, 'POST') == $email .' has been unsubscribed');
+		return ($this->doCall($url, $parameters, 'POST') == $email . ' has been unsubscribed');
 	}
 
 
@@ -397,7 +397,7 @@ class YourMailingListProvider
 	 * Retrieves all available information regarding a contact.
 	 *
 	 * @return	array
-	 * @param	string $email
+	 * @param	string $email	The emailadress.
 	 */
 	public function contactsGetContact($email)
 	{
@@ -552,7 +552,7 @@ class YourMailingListProvider
 	 * Creates a new group.
 	 *
 	 * @return	string
-	 * @param	string $name	Label to use for the new group
+	 * @param	string $name	Label to use for the new group.
 	 */
 	public function GroupsAdd($name)
 	{
@@ -588,7 +588,7 @@ class YourMailingListProvider
 		$parameters['GroupID'] = $id;
 
 		// make the call
-		return ($this->doCall($url, $parameters, 'POST') == 'Removed ID: '. $id);
+		return ($this->doCall($url, $parameters, 'POST') == 'Removed ID: ' . $id);
 	}
 
 
@@ -613,7 +613,7 @@ class YourMailingListProvider
 		$parameters['GroupName'] = $name;
 
 		// make the call
-		return ($this->doCall($url, $parameters, 'POST') == 'Updated ID: '. $id);
+		return ($this->doCall($url, $parameters, 'POST') == 'Updated ID: ' . $id);
 	}
 
 
@@ -621,7 +621,7 @@ class YourMailingListProvider
 	 * Remove all contacts in a group.
 	 *
 	 * @return	string
-	 * @param	string $id
+	 * @param	string $id	The id of the group.
 	 */
 	public function GroupsEmpty($id)
 	{
@@ -660,8 +660,8 @@ class YourMailingListProvider
 	 * @return	string
 	 * @param	string $name						Label to use for the new field.
 	 * @param	string[optional] $alias				Alias for the new field, defaults to the field name.
-	 * @param	mixed[optional] $default
-	 * @param	bool[optional] $correctUppercase
+	 * @param	mixed[optional] $default			The default value.
+	 * @param	bool[optional] $correctUppercase	Correct uppercase values?
 	 */
 	public function FieldsAdd($name, $alias = null, $default = null, $correctUppercase = false)
 	{
@@ -688,7 +688,7 @@ class YourMailingListProvider
 	 * Removes a field based on a given field ID.
 	 *
 	 * @return	bool
-	 * @param	string $id
+	 * @param	string $id	The id of the field to delete.
 	 */
 	public function FieldsDelete($id)
 	{
@@ -702,7 +702,7 @@ class YourMailingListProvider
 		$parameters['FieldID'] = $id;
 
 		// make the call
-		return ($this->doCall($url, $parameters, 'POST') == 'Removed ID: '. $id);
+		return ($this->doCall($url, $parameters, 'POST') == 'Removed ID: ' . $id);
 	}
 
 
@@ -710,11 +710,11 @@ class YourMailingListProvider
 	 * Update the properties of a field.
 	 *
 	 * @return	bool
-	 * @param	string $id
-	 * @param	string[optional] $name
-	 * @param	string[optional] $alias
-	 * @param	mixed[optional] $default
-	 * @param	bool[optional] $correctUppercase
+	 * @param	string $id							The if of the field.
+	 * @param	string[optional] $name				The name of the field.
+	 * @param	string[optional] $alias				The alias of the field.
+	 * @param	mixed[optional] $default			The default value for the field.
+	 * @param	bool[optional] $correctUppercase	Correct uppercase values?
 	 */
 	public function FieldsUpdate($id, $name = null, $alias = null, $default = null, $correctUppercase = null)
 	{
@@ -732,7 +732,7 @@ class YourMailingListProvider
 		if($correctUppercase !== null) $parameters['CorrectUppercase'] = ((bool) $correctUppercase) ? '1' : '0';
 
 		// make the call
-		return ($this->doCall($url, $parameters, 'POST') == 'Updated ID: '. $id);
+		return ($this->doCall($url, $parameters, 'POST') == 'Updated ID: ' . $id);
 	}
 
 
@@ -762,10 +762,10 @@ class YourMailingListProvider
 	 * Creates a new filter.
 	 *
 	 * @return	string
-	 * @param	string $name
-	 * @param	string $field
-	 * @param	string $operand
-	 * @param	string $value
+	 * @param	string $name		The name of the filter.
+	 * @param	string $field		The name of the field.
+	 * @param	string $operand		The operand to use.
+	 * @param	string $value		The value for the filter.
 	 */
 	public function FiltersAdd($name, $field, $operand, $value)
 	{
@@ -831,7 +831,7 @@ class YourMailingListProvider
 	 * Creates a new sender address.
 	 *
 	 * @return	string
-	 * @param	string $email
+	 * @param	string $email		The emailadress.
 	 * @param	string $name		Name/description for the new sender address.
 	 */
 	public function newsletterAddFrom($email, $name)
@@ -856,7 +856,7 @@ class YourMailingListProvider
 	 * Removes a sender address based on a given From ID.
 	 *
 	 * @return	bool
-	 * @param	string $id
+	 * @param	string $id	The id of the from-address.
 	 */
 	public function newsletterDeleteFrom($id)
 	{
@@ -870,7 +870,7 @@ class YourMailingListProvider
 		$parameters['FromID'] = $id;
 
 		// make the call
-		return ($this->doCall($url, $parameters, 'POST') == 'Removed ID: '. $id);
+		return ($this->doCall($url, $parameters, 'POST') == 'Removed ID: ' . $id);
 	}
 
 
@@ -878,18 +878,17 @@ class YourMailingListProvider
 	 * Queues a message for delivery.
 	 *
 	 * @return	bool
-	 * @param	string $subject
-	 * @param	string[optional] $html
-	 * @param	string[optional] $text
-	 * @param	int[optional] $deliveryTime
-	 * @param	string $fromID
-	 * @param	bool[optional] $trackOpens
-	 * @param	bool[optional] $trackClicks
-	 * @param	bool[optional] $testMessage
-	 * @param	array $groups
-	 * @param	array[optional] $filters
-	 * @param	bool[optional] $combineFilters
-	 * @throws YourMailingListProviderException
+	 * @param	string $subject						Subject for the message.
+	 * @param	string[optional] $html				HTML code for the message (optional if a text part is specified).
+	 * @param	string[optional] $text				Plaintext for the message (optional if a HTML part is specified).
+	 * @param	int[optional] $deliveryTime			Delivery time for the message.
+	 * @param	string $fromID						ID of the sender address to use, use NewsletterGetFroms() to retrieve the ID for each sender address.
+	 * @param	bool[optional] $trackOpens			Whether or not to track opens for the message?
+	 * @param	bool[optional] $trackClicks			Whether or not to track clicks for the message?
+	 * @param	bool[optional] $testMessage			Whether it's a test message or a message to be sent to contacts in your database?
+	 * @param	array $groups						ID of the group(s) to send to, use GroupsGetList() to retrieve the ID for each group (ignored for test messages).
+	 * @param	array[optional] $filters			ID of the filter(s) to apply, use FiltersGetList() to retrieve the ID for each filter (ignored for test messages).
+	 * @param	bool[optional] $combineFilters		Whether contacts must match all applied filters or just one?
 	 */
 	public function newsletterSend($subject, $html = null, $text = null, $deliveryTime = null, $fromID, $trackOpens = null, $trackClicks = null, $testMessage = null, array $groups, array $filters = null, $combineFilters = null)
 	{
@@ -926,7 +925,7 @@ class YourMailingListProvider
 	 * @param	int[optional] $numberPerPage		Number of newsletters per result page.
 	 * @param	int[optional] $startDate			Only return newsletters that were sent after this date.
 	 * @param	int[optional] $stopDate				Only return newsletters that were sent before this date.
-	 * @param	string[optional] $sorting			Sorting order of the returned newsletters, either Ascending or Descending
+	 * @param	string[optional] $sorting			Sorting order of the returned newsletters, either Ascending or Descending.
 	 * @param	bool[optional] $showTestMessages	Whether or not to include test messages in the output.
 	 */
 	public function archiveGetList($page = null, $numberPerPage = null, $startDate = null, $stopDate = null, $sorting = null, $showTestMessages = null)
@@ -973,10 +972,10 @@ class YourMailingListProvider
 	 * Returns the list of email addresses a newsletter was sent to.
 	 *
 	 * @return	array
-	 * @param	string $id						ID of the Newsletter
-	 * @param	int[optional] $page				ID of the result page to show
-	 * @param	int[optional] $numberPerPage	Number of email addresses per result page
-	 * @param	string[optional] $sorting		Sorting order of the returned email addresses, either Ascending or Descending
+	 * @param	string $id						ID of the Newsletter.
+	 * @param	int[optional] $page				ID of the result page to show.
+	 * @param	int[optional] $numberPerPage	Number of email addresses per result page.
+	 * @param	string[optional] $sorting		Sorting order of the returned email addresses, either Ascending or Descending.
 	 */
 	public function archiveGetRecipients($id, $page = null, $numberPerPage, $sorting = null)
 	{
@@ -1025,6 +1024,7 @@ class YourMailingListProvider
 	/**
 	 * Returns the bouncebacks for a newsletter.
 	 *
+	 * @return	array
 	 * @param	string $id							ID of the Newsletter.
 	 * @param	bool[optional] $showHardBounces		Whether to include email addresses that returned a permanent error or "hard" bounceback.
 	 * @param	bool[optional] $showSoftBounces		Whether to include email addresses that returned a temporary error or "soft" bounceback.
@@ -1135,7 +1135,7 @@ class YourMailingListProvider
 	 *
 	 * @return	array
 	 * @param	string $id							ID of the Newsletter.
-	 * @param	string[optional] $linkId			ID of a link if you want to limit the results to the clicks on a particular link
+	 * @param	string[optional] $linkId			ID of a link if you want to limit the results to the clicks on a particular link.
 	 * @param	bool[optional] $showUniqueClicks	Whether or not to list only the first click from an email address, if that email address clicked multiple times.
 	 * @param	int[optional] $page					ID of the result page to show.
 	 * @param	int[optional] $numberPerPage		Number of email addresses per result page.
