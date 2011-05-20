@@ -17,11 +17,10 @@ More documentation can be found on [http://classes.verkoyen.eu/yourmailinglistpr
 
 ## Sites using this class
 
-* [SumoCoders](http://www.sumocoders.be)
 * [Il Sole Sul Mio Tetto](http://www.ilsolesulmiotetto.it')
 * [Solar Energy On My Roof](http://www.solarenergyonmyroof.co.uk')
 * [Solar Energy On My Company Roof](http://www.solarenergyonmycompanyroof.co.uk')
-* [Le Soleil Sur Mon Toit](http://www.lesoleilsurmontoit.fr') > 0)
-* [Zonnestroom Op Mijn Dak](http://www.zonnestroomopmijndak.be') > 0)
+* [Le Soleil Sur Mon Toit](http://www.lesoleilsurmontoit.fr')
+* [Zonnestroom Op Mijn Dak](http://www.zonnestroomopmijndak.be')
 * [Zonnestroom Op Mijn Bedrijfsdak](http://www.zonnestroomopmijnbedrijfsdak.be')
 * [La Revolucion De La Energia](http://www.revolucion.be)
