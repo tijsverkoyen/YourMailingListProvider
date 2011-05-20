@@ -30,10 +30,10 @@
  */
 class YourMailingListProvider
 {
-	// url for the bitly-api
+	// url for the YMLP-api
 	const API_URL = 'https://www.ymlp.com/api';
 
-	// port for the bitly-API
+	// port for the YMLP-API
 	const API_PORT = 443;
 
 	// current version
